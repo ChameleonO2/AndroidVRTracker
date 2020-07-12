@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AndroidTracking/Scenes/menu_test.unity
+    guid: 17345861fed086d48b2c99ae95c8d743
+  - enabled: 1
+    path: Assets/AndroidTracking/Scenes/TrackingScene.unity
+    guid: 96ffe19a9cb362647b8d4ec53f2d3fbd
+  m_configObjects: {}
