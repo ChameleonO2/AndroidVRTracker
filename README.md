@@ -7,6 +7,8 @@ ARCoreに対応したAndroidスマートフォンをViveTrackerの代わりに�
 - ARCore対応Androidスマートフォン([ARCoreDoc](https://developers.google.com/ar/discover/supported-devices))
 - VirthalMotionTracker v0.03
 
+# [ダウンロード](https://github.com/ChameleonO2/AndroidVRTracker/releases)
+
 
 
 # 注意
