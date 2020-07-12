@@ -9,6 +9,10 @@ ARCoreに対応したAndroidスマートフォンをViveTrackerの代わりに�
 
 # [ダウンロード](https://github.com/ChameleonO2/AndroidVRTracker/releases)
 
+# 動作保証
+
+しません。Xperia XZ3以外はレイアウトが崩れるかもしれません。
+気が向いたら対応します。
 
 
 # 注意
