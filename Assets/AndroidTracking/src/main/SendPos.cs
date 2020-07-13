@@ -33,9 +33,10 @@ public class SendPos : MonoBehaviour
         //VMT's Tracker ID
         this.tid = ChangeSCENE.tid;
 
-        //Todo: Change for Save data;
+        this.waist = ChangeSCENE.waist;
+
         //Init WaistPositionText 
-        WaistPosInput.text = "85";
+        WaistPosInput.text = this.waist.ToString();
 
         Vector3 pos = myPos.transform.position;
         pos.y = waist;
@@ -139,6 +140,9 @@ public class SendPos : MonoBehaviour
         this.qw= Frame.Pose.rotation.w-1F;
 
         this.waist = float.Parse(WaistPosInput.text) / 100;
+
+        PlayerPrefs.SetFloat(configdate.WAIST,this.waist);
+        PlayerPrefs.Save();
 
         Quaternion qtmp = new Quaternion(Frame.Pose.rotation.x-qx, 
                                          Frame.Pose.rotation.y-qy,
