@@ -10,26 +10,41 @@ public class ChangeSCENE : MonoBehaviour
     public InputField ipAdress;
     public InputField trackerId;
     public static string ip;
-    public static int tid = 1;
+    public static int tid;
 
     // Start is called before the first frame update
     void Start(){
-        trackerId.text = "1";
+
         if(PlayerPrefs.HasKey(configdate.pcaddress)){
             ipAdress.text = PlayerPrefs.GetString(configdate.pcaddress);
         }
+
+        if(PlayerPrefs.HasKey(configdate.VMTID)){
+            trackerId.text = PlayerPrefs.GetInt(configdate.VMTID).ToString();
+        }else{
+            trackerId.text = "1";
+        }
+
     }
+
     public void OnClick(){
+
         ipAdress = ipAdress.GetComponent<InputField>();
         ip = ipAdress.text;
         trackerId = trackerId.GetComponent<InputField>();
         tid = int.Parse(trackerId.text);
         Debug.Log("loadScene");
+
         PlayerPrefs.SetString(configdate.pcaddress,ip);
+        PlayerPrefs.SetInt(configdate.VMTID,tid);
         PlayerPrefs.Save();
+
+        //don't work:(
         StartCoroutine(ExampleCoroutine());
+        
         SceneManager.LoadScene("TrackingScene");
     }
+
     IEnumerator ExampleCoroutine()
     {
         yield return new WaitForSeconds(5);

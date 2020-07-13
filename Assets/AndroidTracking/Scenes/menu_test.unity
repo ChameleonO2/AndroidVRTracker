@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 167723939}
   - component: {fileID: 167723938}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: IPtext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,7 +215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -145.3, y: 144.2}
+  m_AnchoredPosition: {x: -145.3, y: 143.4}
   m_SizeDelta: {x: 130, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167723938
@@ -1099,7 +1099,7 @@ GameObject:
   - component: {fileID: 1673648999}
   - component: {fileID: 1673648998}
   m_Layer: 5
-  m_Name: Text
+  m_Name: VMTID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
