@@ -23,8 +23,6 @@ public class uOscClient : MonoBehaviour
 #endif
     Queue<object> messages_ = new Queue<object>();
     object lockObject_ = new object();
-    void Start(){
-        }
     public void setIp(string ip){
             this.address = ip;
         }
@@ -35,16 +33,13 @@ public class uOscClient : MonoBehaviour
     void OnEnable()
     {
         this.address = ChangeSCENE.ip;
-        Debug.Log("start send");
-        Debug.Log("uOSCip:"+address);
         udp_.StartClient(address, port);
         thread_.Start(UpdateSend);
     }
 
     void OnDisable()
     {
-            Debug.Log("can't send");
-            thread_.Stop();
+        thread_.Stop();
         udp_.Stop();
     }
 

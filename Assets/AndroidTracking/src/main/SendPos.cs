@@ -28,9 +28,6 @@ public class SendPos : MonoBehaviour
     private uOSC.uOscClient client;
     void Start()
     { 
-        //PC's IP address  
-        this.ip = ChangeSCENE.ip;
-        Debug.Log("SendPos start IP:"+this.ip);
         //VMT's Tracker ID
         this.tid = ChangeSCENE.tid;
 
@@ -87,7 +84,7 @@ public class SendPos : MonoBehaviour
                 + "off_z:" + this.z+"\n";
 
 
-        Debug.Log("ip:"+this.ip+"id:"+tid.ToString()+"enable:"+tenable.ToString());
+        // Debug.Log("ip:"+this.ip+"id:"+tid.ToString()+"enable:"+tenable.ToString());
         client.Send("/VMT/Room/Unity",tid, tenable, timeoffset,
             (float)myPos.transform.position.x,
             (float)myPos.transform.position.y + waist,
@@ -98,7 +95,6 @@ public class SendPos : MonoBehaviour
             (float)myPos.transform.rotation.w
         );
 
-        Debug.Log("sendClient:" + client.getIp());
 
     }
     public void onClick(int b_no){
