@@ -28,14 +28,13 @@ public class SendPos : MonoBehaviour
     private uOSC.uOscClient client;
     void Start()
     { 
-        //PC's IP address  
-        this.ip = ChangeSCENE.ip;
         //VMT's Tracker ID
         this.tid = ChangeSCENE.tid;
 
-        //Todo: Change for Save data;
+        this.waist = ChangeSCENE.waist;
+
         //Init WaistPositionText 
-        WaistPosInput.text = "85";
+        WaistPosInput.text = (this.waist*100).ToString();
 
         Vector3 pos = myPos.transform.position;
         pos.y = waist;
@@ -85,7 +84,8 @@ public class SendPos : MonoBehaviour
                 + "off_z:" + this.z+"\n";
 
 
-        client.Send("/VMT/Room/Unity", tid, tenable, timeoffset,
+        // Debug.Log("ip:"+this.ip+"id:"+tid.ToString()+"enable:"+tenable.ToString());
+        client.Send("/VMT/Room/Unity",tid, tenable, timeoffset,
             (float)myPos.transform.position.x,
             (float)myPos.transform.position.y + waist,
             (float)myPos.transform.position.z,
@@ -95,7 +95,6 @@ public class SendPos : MonoBehaviour
             (float)myPos.transform.rotation.w
         );
 
-        Debug.Log("sendClient:" + client.getIp());
 
     }
     public void onClick(int b_no){
@@ -139,6 +138,9 @@ public class SendPos : MonoBehaviour
         this.qw= Frame.Pose.rotation.w-1F;
 
         this.waist = float.Parse(WaistPosInput.text) / 100;
+
+        PlayerPrefs.SetFloat(configdate.WAIST,waist);
+        PlayerPrefs.Save();
 
         Quaternion qtmp = new Quaternion(Frame.Pose.rotation.x-qx, 
                                          Frame.Pose.rotation.y-qy,
