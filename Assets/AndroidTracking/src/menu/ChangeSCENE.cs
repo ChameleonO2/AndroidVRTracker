@@ -29,7 +29,7 @@ public class ChangeSCENE : MonoBehaviour
         }
 
         if(PlayerPrefs.HasKey(configdate.WAIST)){
-            waistInput.text = PlayerPrefs.GetFloat(configdate.WAIST).ToString();
+            waistInput.text = (PlayerPrefs.GetFloat(configdate.WAIST)*100).ToString();
         }else{
             waistInput.text = "85"; //デフォルト値
         }
@@ -43,7 +43,7 @@ public class ChangeSCENE : MonoBehaviour
         trackerId = trackerId.GetComponent<InputField>();
         tid = int.Parse(trackerId.text);
         waistInput = waistInput.GetComponent<InputField>();
-        waist= float.Parse(waistInput.text);
+        waist= float.Parse(waistInput.text)/100;
 
         PlayerPrefs.SetString(configdate.pcaddress,ip);
         PlayerPrefs.SetInt(configdate.VMTID,tid);

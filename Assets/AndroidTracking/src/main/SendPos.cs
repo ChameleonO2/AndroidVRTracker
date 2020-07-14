@@ -34,7 +34,7 @@ public class SendPos : MonoBehaviour
         this.waist = ChangeSCENE.waist;
 
         //Init WaistPositionText 
-        WaistPosInput.text = this.waist.ToString();
+        WaistPosInput.text = (this.waist*100).ToString();
 
         Vector3 pos = myPos.transform.position;
         pos.y = waist;
