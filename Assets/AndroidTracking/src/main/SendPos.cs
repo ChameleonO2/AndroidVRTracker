@@ -30,6 +30,7 @@ public class SendPos : MonoBehaviour
     { 
         //PC's IP address  
         this.ip = ChangeSCENE.ip;
+        Debug.Log("SendPos start IP:"+this.ip);
         //VMT's Tracker ID
         this.tid = ChangeSCENE.tid;
 
@@ -86,7 +87,8 @@ public class SendPos : MonoBehaviour
                 + "off_z:" + this.z+"\n";
 
 
-        client.Send("/VMT/Room/Unity", tid, tenable, timeoffset,
+        Debug.Log("ip:"+this.ip+"id:"+tid.ToString()+"enable:"+tenable.ToString());
+        client.Send("/VMT/Room/Unity",tid, tenable, timeoffset,
             (float)myPos.transform.position.x,
             (float)myPos.transform.position.y + waist,
             (float)myPos.transform.position.z,
@@ -141,7 +143,7 @@ public class SendPos : MonoBehaviour
 
         this.waist = float.Parse(WaistPosInput.text) / 100;
 
-        PlayerPrefs.SetFloat(configdate.WAIST,this.waist);
+        PlayerPrefs.SetFloat(configdate.WAIST,waist);
         PlayerPrefs.Save();
 
         Quaternion qtmp = new Quaternion(Frame.Pose.rotation.x-qx, 

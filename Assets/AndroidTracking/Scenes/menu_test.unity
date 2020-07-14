@@ -1672,7 +1672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipAdress: {fileID: 264045687}
   trackerId: {fileID: 826387747}
-  waistInput: {fileID: 0}
+  waistInput: {fileID: 693127325}
 --- !u!1 &2037447048
 GameObject:
   m_ObjectHideFlags: 0

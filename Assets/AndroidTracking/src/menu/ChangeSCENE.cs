@@ -42,7 +42,6 @@ public class ChangeSCENE : MonoBehaviour
         ip = ipAdress.text;
         trackerId = trackerId.GetComponent<InputField>();
         tid = int.Parse(trackerId.text);
-
         waistInput = waistInput.GetComponent<InputField>();
         waist= float.Parse(waistInput.text);
 

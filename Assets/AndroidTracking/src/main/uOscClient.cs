@@ -10,11 +10,9 @@ public class uOscClient : MonoBehaviour
     private const int BufferSize = 8192;
     private const int MaxQueueSize = 100;
 
-    [SerializeField]
-    string address = "127.0.0.1";
+    private string address;
 
-    [SerializeField]
-    int port = 39570;
+    private int port = 39570;
 
 #if NETFX_CORE
     Udp udp_ = new Uwp.Udp();
@@ -25,8 +23,10 @@ public class uOscClient : MonoBehaviour
 #endif
     Queue<object> messages_ = new Queue<object>();
     object lockObject_ = new object();
+    void Start(){
+        }
     public void setIp(string ip){
-            address = ip;
+            this.address = ip;
         }
 
     public string getIp(){
@@ -34,7 +34,9 @@ public class uOscClient : MonoBehaviour
         }
     void OnEnable()
     {
+        this.address = ChangeSCENE.ip;
         Debug.Log("start send");
+        Debug.Log("uOSCip:"+address);
         udp_.StartClient(address, port);
         thread_.Start(UpdateSend);
     }
