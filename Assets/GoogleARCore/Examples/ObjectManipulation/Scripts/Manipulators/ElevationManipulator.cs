@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="ElevationManipulator.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="ElevationManipulator.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ namespace GoogleARCore.Examples.ObjectManipulation
     /// If an object is selected, then doing a two finger drag along the vertical
     /// axis will elevate the object.
     /// </summary>
+    [RequireComponent(typeof(SelectionManipulator))]
     public class ElevationManipulator : Manipulator
     {
         /// <summary>
@@ -93,10 +94,13 @@ namespace GoogleARCore.Examples.ObjectManipulation
             {
                 transform.position = transform.parent.TransformPoint(
                     new Vector3(
-                        transform.localPosition.x, transform.parent.InverseTransformPoint(m_Origin).y,
+                        transform.localPosition.x,
+                        transform.parent.InverseTransformPoint(m_Origin).y,
                         transform.localPosition.z));
             }
 
+            GetComponent<SelectionManipulator>().OnElevationChangedScaled(
+                Mathf.Abs(transform.position.y - m_Origin.y));
             OnContinueElevationVisualization(transform.position);
         }
 

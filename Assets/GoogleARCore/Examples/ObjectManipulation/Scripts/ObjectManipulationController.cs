@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="ObjectManipulationController.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="ObjectManipulationController.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,7 +35,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
     public class ObjectManipulationController : MonoBehaviour
     {
         /// <summary>
-        /// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
+        /// True if the app is in the process of quitting due to an ARCore connection error,
+        /// otherwise false.
         /// </summary>
         private bool m_IsQuitting = false;
 
@@ -45,6 +46,16 @@ namespace GoogleARCore.Examples.ObjectManipulation
         public void Update()
         {
             _UpdateApplicationLifecycle();
+        }
+
+        /// <summary>
+        /// The Unity Awake() method.
+        /// </summary>
+        public void Awake()
+        {
+            // Enable ARCore to target 60fps camera capture frame rate on supported devices.
+            // Note, Application.targetFrameRate is ignored when QualitySettings.vSyncCount != 0.
+            Application.targetFrameRate = 60;
         }
 
         /// <summary>
@@ -61,8 +72,7 @@ namespace GoogleARCore.Examples.ObjectManipulation
             // Only allow the screen to sleep when not tracking.
             if (Session.Status != SessionStatus.Tracking)
             {
-                const int lostTrackingSleepTimeout = 15;
-                Screen.sleepTimeout = lostTrackingSleepTimeout;
+                Screen.sleepTimeout = SleepTimeout.SystemSetting;
             }
             else
             {
@@ -74,7 +84,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
                 return;
             }
 
-            // Quit if ARCore was unable to connect and give Unity some time for the toast to appear.
+            // Quit if ARCore was unable to connect and give Unity some time for the toast to
+            // appear.
             if (Session.Status == SessionStatus.ErrorPermissionNotGranted)
             {
                 _ShowAndroidToastMessage("Camera permission is needed to run this application.");
@@ -83,7 +94,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
             }
             else if (Session.Status.IsError())
             {
-                _ShowAndroidToastMessage("ARCore encountered a problem connecting.  Please start the app again.");
+                _ShowAndroidToastMessage(
+                    "ARCore encountered a problem connecting.  Please start the app again.");
                 m_IsQuitting = true;
                 Invoke("_DoQuit", 0.5f);
             }
@@ -104,15 +116,17 @@ namespace GoogleARCore.Examples.ObjectManipulation
         private void _ShowAndroidToastMessage(string message)
         {
             AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaObject unityActivity =
+                unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
 
             if (unityActivity != null)
             {
                 AndroidJavaClass toastClass = new AndroidJavaClass("android.widget.Toast");
                 unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
                 {
-                    AndroidJavaObject toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity,
-                        message, 0);
+                    AndroidJavaObject toastObject =
+                        toastClass.CallStatic<AndroidJavaObject>(
+                            "makeText", unityActivity, message, 0);
                     toastObject.Call("show");
                 }));
             }

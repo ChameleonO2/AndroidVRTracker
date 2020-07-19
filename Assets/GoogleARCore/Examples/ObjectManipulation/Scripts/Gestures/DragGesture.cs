@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="DragGesture.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="DragGesture.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,6 +22,11 @@ namespace GoogleARCore.Examples.ObjectManipulation
 {
     using GoogleARCore.Examples.ObjectManipulationInternal;
     using UnityEngine;
+
+#if UNITY_EDITOR
+    // Set up touch input propagation while using Instant Preview in the editor.
+    using Input = GoogleARCore.InstantPreviewInput;
+#endif
 
     /// <summary>
     /// Gesture for when the user performs a drag motion on the touch screen.
@@ -90,7 +95,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
             {
                 Vector2 pos = touch.position;
                 float diff = (pos - StartPosition).magnitude;
-                if (GestureTouchesUtility.PixelsToInches(diff) >= (m_Recognizer as DragGestureRecognizer).m_SlopInches)
+                if (GestureTouchesUtility.PixelsToInches(diff) >=
+                    (Recognizer as DragGestureRecognizer).SlopInches)
                 {
                     return true;
                 }

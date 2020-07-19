@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="LocalPlayerController.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="LocalPlayerController.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ namespace GoogleARCore.Examples.CloudAnchors
         {
             base.OnStartLocalPlayer();
 
-            // A Name is provided to the Game Object so it can be found by other Scripts, since this is instantiated as
-            // a prefab in the scene.
+            // A Name is provided to the Game Object so it can be found by other Scripts, since this
+            // is instantiated as a prefab in the scene.
             gameObject.name = "LocalPlayer";
         }
 
@@ -66,7 +66,8 @@ namespace GoogleARCore.Examples.CloudAnchors
             // Anchor must be hosted in the device.
             anchorObject.GetComponent<AnchorController>().HostLastPlacedAnchor(anchor);
 
-            // Host can spawn directly without using a Command because the server is running in this instance.
+            // Host can spawn directly without using a Command because the server is running in this
+            // instance.
 #pragma warning disable 618
             NetworkServer.Spawn(anchorObject);
 #pragma warning restore 618

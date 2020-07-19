@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------
-// <copyright file="ImageApi.cs" company="Google">
+// <copyright file="ImageApi.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,8 +33,16 @@ namespace GoogleARCoreInternal
 
     internal class ImageApi
     {
-        public void GetImageBuffer(IntPtr imageHandle, out int width, out int height, out IntPtr yPlane,
-            out IntPtr uPlane, out IntPtr vPlane, out int yRowStride, out int uvPixelStride, out int uvRowStride)
+        private NativeSession m_NativeSession;
+
+        public ImageApi(NativeSession nativeSession)
+        {
+            m_NativeSession = nativeSession;
+        }
+
+        public void GetImageBuffer(
+            IntPtr imageHandle, out int width, out int height, out IntPtr yPlane, out IntPtr uPlane,
+            out IntPtr vPlane, out int yRowStride, out int uvPixelStride, out int uvRowStride)
         {
             IntPtr ndkImageHandle = IntPtr.Zero;
             ExternApi.ArImage_getNdkImage(imageHandle, ref ndkImageHandle);
@@ -69,6 +77,27 @@ namespace GoogleARCoreInternal
             ExternApi.AImage_getPlaneRowStride(ndkImageHandle, U_PLANE, ref uvRowStride);
         }
 
+        public void GetPlaneData(IntPtr imageHandle, int planeIndex, ref IntPtr surfaceData,
+            ref int dataLength)
+        {
+            ExternApi.ArImage_getPlaneData(m_NativeSession.SessionHandle, imageHandle, planeIndex,
+                ref surfaceData, ref dataLength);
+        }
+
+        public int GetWidth(IntPtr imageHandle)
+        {
+            int width = 0;
+            ExternApi.ArImage_getWidth(m_NativeSession.SessionHandle, imageHandle, out width);
+            return width;
+        }
+
+        public int GetHeight(IntPtr imageHandle)
+        {
+            int height = 0;
+            ExternApi.ArImage_getHeight(m_NativeSession.SessionHandle, imageHandle, out height);
+            return height;
+        }
+
         public void Release(IntPtr imageHandle)
         {
             ExternApi.ArImage_release(imageHandle);
@@ -90,14 +119,29 @@ namespace GoogleARCoreInternal
             public static extern int AImage_getHeight(IntPtr ndkImageHandle, ref int height);
 
             [AndroidImport(ApiConstants.MediaNdk)]
-            public static extern int AImage_getPlaneData(IntPtr imageHandle, int planeIdx, ref IntPtr data,
+            public static extern int AImage_getPlaneData(
+                IntPtr imageHandle, int planeIdx, ref IntPtr data, ref int dataLength);
+
+            [AndroidImport(ApiConstants.MediaNdk)]
+            public static extern int AImage_getPlanePixelStride(
+                IntPtr imageHandle, int planeIdx, ref int pixelStride);
+
+            [AndroidImport(ApiConstants.MediaNdk)]
+            public static extern int AImage_getPlaneRowStride(
+                IntPtr imageHandle, int planeIdx, ref int rowStride);
+
+           [AndroidImport(ApiConstants.ARCoreNativeApi)]
+            public static extern void ArImage_getWidth(
+                IntPtr sessionHandle, IntPtr imageHandle, out int width);
+
+            [AndroidImport(ApiConstants.ARCoreNativeApi)]
+            public static extern void ArImage_getHeight(
+                IntPtr sessionHandle, IntPtr imageHandle, out int height);
+
+            [AndroidImport(ApiConstants.ARCoreNativeApi)]
+            public static extern void ArImage_getPlaneData(
+                IntPtr sessionHandle, IntPtr imageHandle, int planeIndex, ref IntPtr surfaceData,
                 ref int dataLength);
-
-            [AndroidImport(ApiConstants.MediaNdk)]
-            public static extern int AImage_getPlanePixelStride(IntPtr imageHandle, int planeIdx, ref int pixelStride);
-
-            [AndroidImport(ApiConstants.MediaNdk)]
-            public static extern int AImage_getPlaneRowStride(IntPtr imageHandle, int planeIdx, ref int rowStride);
 #pragma warning restore 626
         }
     }

@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="TwistGesture.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="TwistGesture.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,7 +37,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
         /// <param name="recognizer">The gesture recognizer.</param>
         /// <param name="touch1">The first touch that started this gesture.</param>
         /// <param name="touch2">The second touch that started this gesture.</param>
-        public TwistGesture(TwistGestureRecognizer recognizer, Touch touch1, Touch touch2) : base(recognizer)
+        public TwistGesture(TwistGestureRecognizer recognizer, Touch touch1, Touch touch2) :
+            base(recognizer)
         {
             FingerId1 = touch1.fingerId;
             FingerId2 = touch2.fingerId;
@@ -85,7 +86,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
 
             Touch touch1, touch2;
             bool foundTouches = GestureTouchesUtility.TryFindTouch(FingerId1, out touch1);
-            foundTouches = GestureTouchesUtility.TryFindTouch(FingerId2, out touch2) && foundTouches;
+            foundTouches =
+                GestureTouchesUtility.TryFindTouch(FingerId2, out touch2) && foundTouches;
 
             if (!foundTouches)
             {
@@ -99,10 +101,11 @@ namespace GoogleARCore.Examples.ObjectManipulation
                 return false;
             }
 
-            TwistGestureRecognizer twistRecognizer = m_Recognizer as TwistGestureRecognizer;
+            TwistGestureRecognizer twistRecognizer = Recognizer as TwistGestureRecognizer;
 
-            float rotation = CalculateDeltaRotation(touch1.position, touch2.position, StartPosition1, StartPosition2);
-            if (Mathf.Abs(rotation) < twistRecognizer.m_SlopRotation)
+            float rotation = CalculateDeltaRotation(
+                touch1.position, touch2.position, StartPosition1, StartPosition2);
+            if (Mathf.Abs(rotation) < twistRecognizer.SlopRotation)
             {
                 return false;
             }
@@ -133,7 +136,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
         {
             Touch touch1, touch2;
             bool foundTouches = GestureTouchesUtility.TryFindTouch(FingerId1, out touch1);
-            foundTouches = GestureTouchesUtility.TryFindTouch(FingerId2, out touch2) && foundTouches;
+            foundTouches =
+                GestureTouchesUtility.TryFindTouch(FingerId2, out touch2) && foundTouches;
 
             if (!foundTouches)
             {

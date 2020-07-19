@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="PlaneDiscoveryGuide.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="PlaneDiscoveryGuide.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -97,7 +97,9 @@ namespace GoogleARCore.Examples.Common
         /// <summary>
         /// The Game Object that contains the window with more instructions on how to find a plane.
         /// </summary>
-        [Tooltip("The Game Object that contains the window with more instructions on how to find a plane.")]
+        [Tooltip(
+            "The Game Object that contains the window with more instructions on how to find " +
+            "a plane.")]
         [SerializeField] private GameObject m_MoreHelpWindow = null;
 
         /// <summary>
@@ -159,6 +161,25 @@ namespace GoogleARCore.Examples.Common
         }
 
         /// <summary>
+        /// Enable or Disable this Plane Discovery Guide.
+        /// </summary>
+        /// <param name="guideEnabled">Enable/Disable the guide.</param>
+        public void EnablePlaneDiscoveryGuide(bool guideEnabled)
+        {
+            if (guideEnabled)
+            {
+                enabled = true;
+            }
+            else
+            {
+                enabled = false;
+                m_FeaturePoints.SetActive(false);
+                m_HandAnimation.enabled = false;
+                m_SnackBar.SetActive(false);
+            }
+        }
+
+        /// <summary>
         /// Callback executed when the open button has been clicked by the user.
         /// </summary>
         private void _OnOpenButtonClicked()
@@ -210,7 +231,8 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         private void _UpdateUI()
         {
-            if (Session.Status == SessionStatus.LostTracking && Session.LostTrackingReason != LostTrackingReason.None)
+            if (Session.Status == SessionStatus.LostTracking &&
+                Session.LostTrackingReason != LostTrackingReason.None)
             {
                 // The session has lost tracking.
                 m_FeaturePoints.SetActive(false);
@@ -226,6 +248,10 @@ namespace GoogleARCore.Examples.Common
                         break;
                     case LostTrackingReason.ExcessiveMotion:
                         m_SnackBarText.text = "Moving too fast. Slow down.";
+                        break;
+                    case LostTrackingReason.CameraUnavailable:
+                        m_SnackBarText.text = "Another app is using the camera. Tap on this app " +
+                            "or try closing the other one.";
                         break;
                     default:
                         m_SnackBarText.text = "Motion tracking is lost.";
@@ -245,7 +271,8 @@ namespace GoogleARCore.Examples.Common
 
             if (m_NotDetectedPlaneElapsed > DisplayGuideDelay)
             {
-                // The session has been tracking but no planes have been found by 'DisplayGuideDelay'.
+                // The session has been tracking but no planes have been found by
+                // 'DisplayGuideDelay'.
                 m_FeaturePoints.SetActive(true);
 
                 if (!m_HandAnimation.enabled)
@@ -270,8 +297,9 @@ namespace GoogleARCore.Examples.Common
             }
             else if (m_NotDetectedPlaneElapsed > 0f || m_DetectedPlaneElapsed > k_HideGuideDelay)
             {
-                // The session is tracking but no planes have been found in less than 'DisplayGuideDelay' or
-                // at least one plane has been tracking for more than 'k_HideGuideDelay'.
+                // The session is tracking but no planes have been found in less than
+                // 'DisplayGuideDelay' or at least one plane has been tracking for more than
+                // 'k_HideGuideDelay'.
                 m_FeaturePoints.SetActive(false);
                 m_SnackBar.SetActive(false);
                 m_OpenButton.SetActive(false);

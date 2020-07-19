@@ -1,7 +1,7 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="RotationManipulator.cs" company="Google">
+//-----------------------------------------------------------------------
+// <copyright file="RotationManipulator.cs" company="Google LLC">
 //
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2018 Google LLC. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -80,7 +80,8 @@ namespace GoogleARCore.Examples.ObjectManipulation
         {
             float sign = -1.0f;
             Vector3 forward = Camera.main.transform.TransformPoint(Vector3.forward);
-            Quaternion WorldToVerticalOrientedDevice = Quaternion.Inverse(Quaternion.LookRotation(forward, Vector3.up));
+            Quaternion WorldToVerticalOrientedDevice =
+                Quaternion.Inverse(Quaternion.LookRotation(forward, Vector3.up));
             Quaternion DeviceToWorld = Camera.main.transform.rotation;
             Vector3 rotatedDelta = WorldToVerticalOrientedDevice * DeviceToWorld * gesture.Delta;
 
