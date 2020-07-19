@@ -10,10 +10,16 @@ public class ChangeSCENE : MonoBehaviour
     public InputField ipAdress;
     public InputField trackerId;
     public InputField waistInput;
+    public InputField XInput;
+    public InputField YInput;
+    public InputField ZInput;
 
     public static string ip;
     public static int tid;
     public static float waist;
+    public static float x;
+    public static float y;
+    public static float z;
 
     // Start is called before the first frame update
     void Start(){

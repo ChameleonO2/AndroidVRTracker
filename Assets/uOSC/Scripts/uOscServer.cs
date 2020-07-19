@@ -29,21 +29,26 @@ public class uOscServer : MonoBehaviour
     void OnEnable()
     {
         udp_.StartServer(port);
+            Debug.Log("OSC STERTED:" + port);
+
         thread_.Start(UpdateMessage);
     }
 
     void OnDisable()
     {
+        Debug.Log("Disable OSC");
         thread_.Stop();
         udp_.Stop();
     }
 
     void Update()
     {
-        while (parser_.messageCount > 0)
+            Debug.Log("Update OSC");
+            while (parser_.messageCount > 0)
         {
             var message = parser_.Dequeue();
-            onDataReceived.Invoke(message);
+                Debug.Log("UpdateOSC INFO:" + message.values[0]);
+                onDataReceived.Invoke(message);
         }
     }
 

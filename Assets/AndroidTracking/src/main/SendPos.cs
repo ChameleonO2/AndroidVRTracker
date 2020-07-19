@@ -17,7 +17,7 @@ public class SendPos : MonoBehaviour
     private int tid;
 
     //Pos offsetValue
-    public float x = 0F, y = 0F, z = 0F;
+    public static float x = 0F, y = 0F, z = 0F;
     public float qx = 0F, qy = 0F, qz = 0F, qw = 0F;
 
     //Waist height
@@ -61,9 +61,9 @@ public class SendPos : MonoBehaviour
                 +"qW:"+Frame.Pose.rotation.w+"\n";
 
         Vector3 pos = myPos.transform.position;
-        pos.x = Frame.Pose.position.x - this.x;
-        pos.y = Frame.Pose.position.y - this.y;
-        pos.z = Frame.Pose.position.z - this.z;
+        pos.x = Frame.Pose.position.x - x;
+        pos.y = Frame.Pose.position.y - y;
+        pos.z = Frame.Pose.position.z - z;
         myPos.transform.position = pos;
 
         Quaternion qtmp = new Quaternion(Frame.Pose.rotation.x-qx, 
@@ -79,9 +79,9 @@ public class SendPos : MonoBehaviour
                 + "qY:" + myPos.transform.rotation.y  + "\n"
                 + "qZ:" + myPos.transform.rotation.z  + "\n"
                 + "qW:" + myPos.transform.rotation.w  + "\n"
-                + "off_x:" + this.x+"\n"
-                + "off_y:" + this.y+"\n"
-                + "off_z:" + this.z+"\n";
+                + "off_x:" + x+"\n"
+                + "off_y:" + y+"\n"
+                + "off_z:" + z+"\n";
 
 
         // Debug.Log("ip:"+this.ip+"id:"+tid.ToString()+"enable:"+tenable.ToString());
@@ -103,22 +103,22 @@ public class SendPos : MonoBehaviour
                 ResetClick();
                 break;
             case 1:
-                this.x += adjustScale;
+                x += adjustScale;
                 break;
             case 2:
-                this.x -= adjustScale;
+                x -= adjustScale;
                 break;
             case 3:
-                this.y += adjustScale;
+                y += adjustScale;
                 break;
             case 4:
-                this.y -= adjustScale;
+                y -= adjustScale;
                 break;
             case 5:
-                this.z += adjustScale;
+                z += adjustScale;
                 break;
             case 6:
-                this.z -= adjustScale;
+                z -= adjustScale;
                 break;
             default:
                 break;
@@ -128,9 +128,9 @@ public class SendPos : MonoBehaviour
     private void ResetClick(){
         WaistPosInput=WaistPosInput.GetComponent<InputField>();
 
-        this.x= Frame.Pose.position.x;
-        this.y= Frame.Pose.position.y;
-        this.z= Frame.Pose.position.z;
+        x= Frame.Pose.position.x;
+        y= Frame.Pose.position.y;
+        z= Frame.Pose.position.z;
 
         this.qx= Frame.Pose.rotation.x;
         this.qy= Frame.Pose.rotation.y;
@@ -156,9 +156,9 @@ public class SendPos : MonoBehaviour
                 + "qY:" + myPos.transform.rotation.y + "\n"
                 + "qZ:" + myPos.transform.rotation.z + "\n"
                 + "qW:" + myPos.transform.rotation.w + "\n"
-                + "off_x:" + this.x+"\n"
-                + "off_y:" + this.y+"\n"
-                + "off_z:" + this.z+"\n"
+                + "off_x:" + x+"\n"
+                + "off_y:" + y+"\n"
+                + "off_z:" + z+"\n"
                 + "off_qx:" + this.qx + "\n"
                 + "off_qy:" + this.qy + "\n"
                 + "off_qz:" + this.qz + "\n"
